@@ -8,7 +8,7 @@ class Fruit:
     def __init__(self):
         self.__color = "red"
 
-    def getColor(self):
+    def getColor(self):     # 类的方法,至少有一个参数self
         print self.__color
 
     @staticmethod
