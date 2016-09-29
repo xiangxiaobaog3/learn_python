@@ -3,10 +3,10 @@
 # 静态方法可以被类直接调用,可以被所有的实例化对象共享,静态方法并没有和类的实例进行名称绑定,相当于全局函数
 
 class Fruit:
-    price = 0
+    price = 0   #类属性
 
     def __init__(self):
-        self.__color = "red"
+        self.__color = "red"    #实例属性
 
     def getColor(self):     # 类的方法,至少有一个参数self
         print self.__color
