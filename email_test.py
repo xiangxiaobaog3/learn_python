@@ -1,6 +1,11 @@
 # -*- coding:utf-8 -*-
 
 # 函数式编程之发送邮件
+# def 定义函数的关键字
+# 函数名,日后通过函数名调用该函数
+# 函数声明,不自动执行; 调用后才执行
+# 函数的参数
+# 函数的返回值
 
 import smtplib
 from email.mime.text import MIMEText
@@ -25,7 +30,9 @@ if __name__ == '__main__':
     for i in range(1):
         if cpu > 90:
             alert = u'CPU出问题'
-            email(alert)
+            ret = email(alert)
+            if ret == False:
+                email(alert)
         if disk > 90:
             alert = u'硬盘出问题'
             email(alert)
