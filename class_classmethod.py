@@ -24,5 +24,5 @@ class Fruit:
 if __name__ == '__main__':
     apple = Fruit()
     apple.getColor()
-    apple.count()
+    #apple.count()
     apple.getPrice()
