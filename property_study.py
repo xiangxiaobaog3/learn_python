@@ -8,7 +8,7 @@ class Student(object):
     def score(self):
         return self._score
 
-    @score.setter
+    #@score.setter
     def score(self, value):
         if not isinstance(value, int):
             raise ValueError('score must be an integer!')
