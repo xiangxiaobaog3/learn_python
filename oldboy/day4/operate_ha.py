@@ -4,7 +4,7 @@ import os
 
 def fetch(backend):
     fetch_list = []
-    with open('haporxy.conf') as obj:
+    with open('ha') as obj:
         flag = False
         for line in obj:
             if line.strip() == "backend %s" % backend:
@@ -33,21 +33,24 @@ def add(dict_info):
         else:
             fetch_list.append(crrent_record)
             # fetch_list,处理完的新列表
-        with open('haporxy.conf','r') as read_obj, open('ha.new', 'w') as write_obj:
-            flag = False
-            has_write = False
+        flag = False
+        has_write = False
+        with open('ha','r') as read_obj, open('ha.new', 'w') as write_obj:
             for line in read_obj:
                 if line.strip() == crrent_title:
-                    write_obj.write(line)
-                    flag = True
+                    flag = True #中间的内容
+                    write_obj.write(line) #把backend写入新配置文件
                     continue
                 if flag and line.strip().startswith('backend'):
+                    # flag = True
                     flag = False
+
                 if flag:
-                    # 中,把列表所有数据写入
+                    # flag = True
+                    # 把已经处理完的数据 = fetch_list 写入到新配置文件
                     if not has_write:
                         for new_line in fetch_list:
-                            temp = "%s %s \n" %(" "*8, new_line)
+                            temp = "%s%s \n" % (" " * 8, new_line)
                             write_obj.write(temp)
                         has_write = True
                 else:
@@ -56,16 +59,16 @@ def add(dict_info):
     else:
         #pass #不存在backend,添加记录和backend
         #crrent_title,crrent_record
-        with open('haporxy.conf') as read_obj, open('ha.new', 'w') as write_obj:
+        with open('ha','r') as read_obj, open('ha.new', 'w') as write_obj:
             for line in read_obj:
                 write_obj.write(line)
-            write_obj.write(crrent_title+'\n')
-            temp = "%s %s \n" %(" "*8, crrent_record)
+            write_obj.write("\n"+crrent_title+'\n')
+            temp = "%s%s \n" %(" "*8, crrent_record)
             write_obj.write(temp)
 
-    os.rename('haporxy.conf', 'ha.bak')
+    os.rename('ha', 'ha.bak')
     os.rename('ha.new', 'ha')
 
-s = '{"bakend": "haha.oldboy.org","record":{"server": "192.168.177.12","weight": 20,"maxconn": 30}}'
+s = '{"backend": "haha.oldboy.org","record":{"server": "192.168.177.12","weight": 20,"maxconn": 30}}'
 data_dict = json.loads(s)
 add(data_dict)
